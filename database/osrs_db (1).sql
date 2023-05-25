@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2020 at 01:22 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.33
+-- Generation Time: May 25, 2023 at 08:12 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,19 +32,18 @@ CREATE TABLE `classes` (
   `level` varchar(200) NOT NULL,
   `section` varchar(200) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `classes`
 --
 
 INSERT INTO `classes` (`id`, `level`, `section`, `date_created`) VALUES
-(1, 'First', 'A', '2020-11-21 13:38:56'),
-(2, 'First', 'B', '2020-11-21 13:39:21'),
-(3, 'Second', 'A', '2020-11-21 13:43:11'),
-(4, 'Second', 'B', '2020-11-21 13:46:24'),
-(5, 'Third', 'A', '2020-11-21 13:46:33'),
-(6, 'Fourth', 'A', '2020-11-21 13:46:46');
+(1, 'Masters of Computer Application', '1', '2020-11-21 13:38:56'),
+(2, 'Bachelors of Computer Application', '2', '2020-11-21 13:39:21'),
+(3, 'Bachelors of Computer Application', '1', '2020-11-21 13:43:11'),
+(4, 'Masters of Computer Application', '2', '2020-11-21 13:46:24'),
+(6, 'Bachelors of Computer Application', '3', '2020-11-21 13:46:46');
 
 -- --------------------------------------------------------
 
@@ -58,7 +57,7 @@ CREATE TABLE `results` (
   `marks_percentage` varchar(5) NOT NULL,
   `class_id` int(30) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `results`
@@ -66,7 +65,8 @@ CREATE TABLE `results` (
 
 INSERT INTO `results` (`id`, `student_id`, `marks_percentage`, `class_id`, `date_created`) VALUES
 (1, 1, '87.67', 1, '2020-11-21 16:57:05'),
-(2, 2, '90.33', 1, '2020-11-25 16:45:52');
+(2, 2, '90.33', 1, '2020-11-25 16:45:52'),
+(3, 3, '84', 6, '2023-05-24 18:34:08');
 
 -- --------------------------------------------------------
 
@@ -80,7 +80,7 @@ CREATE TABLE `result_items` (
   `subject_id` int(30) NOT NULL,
   `mark` float NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `result_items`
@@ -92,7 +92,10 @@ INSERT INTO `result_items` (`id`, `result_id`, `subject_id`, `mark`, `date_creat
 (3, 1, 3, 90, '2020-11-21 16:57:05'),
 (4, 2, 2, 90, '2020-11-25 16:45:52'),
 (5, 2, 1, 88, '2020-11-25 16:45:52'),
-(6, 2, 3, 93, '2020-11-25 16:45:52');
+(6, 2, 3, 93, '2020-11-25 16:45:52'),
+(8, 3, 1, 78, '2023-05-25 11:38:25'),
+(9, 3, 3, 89, '2023-05-25 11:38:25'),
+(10, 3, 2, 85, '2023-05-25 11:38:25');
 
 -- --------------------------------------------------------
 
@@ -110,15 +113,16 @@ CREATE TABLE `students` (
   `address` text NOT NULL,
   `class_id` int(30) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `students`
 --
 
 INSERT INTO `students` (`id`, `student_code`, `firstname`, `middlename`, `lastname`, `gender`, `address`, `class_id`, `date_created`) VALUES
-(1, '62314', 'John', 'D', 'Smith', 'Female', 'Sample Address', 2, '2020-11-21 14:29:03'),
-(2, '1415', 'Claire', 'G', 'Blake', 'Female', 'Sample Address', 1, '2020-11-25 16:45:05');
+(1, '62314', 'John', 'D', 'Smith', 'Male', 'Sample Address', 2, '2020-11-21 14:29:03'),
+(2, '1415', 'Claire', 'G', 'Blake', 'Female', 'Sample Address', 1, '2020-11-25 16:45:05'),
+(3, '20605', 'rashi', 'Miller', 'Sharma', 'Female', 'A-5, Kanti nagar,opp. polovictory', 6, '2023-05-24 18:33:32');
 
 -- --------------------------------------------------------
 
@@ -132,16 +136,16 @@ CREATE TABLE `subjects` (
   `subject` varchar(200) NOT NULL,
   `description` text NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `subjects`
 --
 
 INSERT INTO `subjects` (`id`, `subject_code`, `subject`, `description`, `date_created`) VALUES
-(1, '1101', 'Math', 'Mathematics', '2020-11-21 15:43:25'),
-(2, '1102', 'English', 'History', '2020-11-21 15:46:30'),
-(3, '1103', 'Science', 'Science', '2020-11-21 15:46:49');
+(1, '1101', 'Python', 'For Final year ', '2020-11-21 15:43:25'),
+(2, '1102', 'ADA', 'For MCA', '2020-11-21 15:46:30'),
+(3, '1103', 'Java', 'For Final Year Students', '2020-11-21 15:46:49');
 
 -- --------------------------------------------------------
 
@@ -156,14 +160,14 @@ CREATE TABLE `system_settings` (
   `contact` varchar(20) NOT NULL,
   `address` text NOT NULL,
   `cover_img` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `system_settings`
 --
 
 INSERT INTO `system_settings` (`id`, `name`, `email`, `contact`, `address`, `cover_img`) VALUES
-(1, 'Online Student Result System', 'info@sample.comm', '+6948 8542 623', '2102  Caldwell Road, Rochester, New York, 14608', '1605927480_download.jpg');
+(1, 'Student Result Management System', 'info@sample.comm', '+6948 8542 623', '2102  Caldwell Road, Rochester, New York, 14608', '1605927480_download.jpg');
 
 -- --------------------------------------------------------
 
@@ -179,7 +183,7 @@ CREATE TABLE `users` (
   `password` text NOT NULL,
   `type` int(1) NOT NULL DEFAULT 1,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
@@ -248,19 +252,19 @@ ALTER TABLE `classes`
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `result_items`
 --
 ALTER TABLE `result_items`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `subjects`
